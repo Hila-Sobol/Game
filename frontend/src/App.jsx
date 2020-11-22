@@ -1,33 +1,29 @@
 import './App.css';
+import Login from "./components/Login";
+import RoomsArea from './components/RoomsArea'
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import React, { useEffect, useState } from 'react';
 
-import useGetURL from './getURL';
-
 function App() {
- 
-  const [{ data, isLoading, isError }, setURL] = useGetURL("http://localhost:5000/rooms")
-
-  const formatData = (data) => {
-    let output = ""
-    console.log(data)
-    data.forEach(room => {
-      console.log(data)
-      output += `Room id: ${room.id}\n`
-      // output += `Participants: 1 - ${room.participants[0]}, 2 - ${room.participants[1]}`
-   })
-   return output
-  }
- 
-  return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-      This is the body
-      <br/>
-      {!isLoading && !isError && data && formatData(data)}
-    </div>
-  );
-}
-
+    const [newUser, setNewUser] = useState("")
+    function addToRoom(userName){
+        setNewUser(userName)
+    }
+   return(
+        <Router>
+            <Switch>
+                <Route exact path="/">
+                    <Login onLogin = {addToRoom} />
+                </Route>
+                <Route path="/rooms">
+                    <RoomsArea />
+                </Route>  
+            </Switch>  
+        </Router>
+    
+   ) 
+    
+}            
 export default App;
+            

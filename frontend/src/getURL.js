@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const useHackerNewsApi = (uri) => {
-    const [data, setData] = useState();
+    const [data, setData] = useState("");
     const [url, setUrl] = useState(
       uri,
     );
