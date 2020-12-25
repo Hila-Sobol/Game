@@ -1,3 +1,5 @@
+import '../Login.css';
+
 import React, {useState} from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -12,7 +14,8 @@ function Login(props){
     // generating uuid-int
     const UUID = require('uuid-int');
     const generator = UUID(0);
-    const uId = generator.uuid();
+    // to avoid bigNumber
+    const uId = parseInt((generator.uuid().toString()).substring(0,10));
     
     // setUser - receives event= the input field and sets a uuid and the user name to state hooks 
     function setUser(event){
@@ -53,17 +56,16 @@ function Login(props){
     }
     return (
         <Router>
-        <div className="Login">
+        <div className="Login login_back" >
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="userName">
-              <Form.Label>User Name</Form.Label>
+              <Form.Label></Form.Label>
               <Form.Control
+                placeholder = "User Name"
                 autoFocus
                 type="userName"
                 value={userName}
                 onChange={setUser}
               />
-            </Form.Group>
             <Button type="submit" >
               Login
             </Button>
