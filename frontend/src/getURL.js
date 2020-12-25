@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-
+import JSONBigInt from 'json-bigint'
 import axios from 'axios';
 
-const useHackerNewsApi = (uri) => {
+const useGetURL = (uri) => {
     const [data, setData] = useState("");
     const [url, setUrl] = useState(
       uri,
@@ -16,8 +16,8 @@ const useHackerNewsApi = (uri) => {
         setIsLoading(true);
    
         try {
-          const result = await axios(url);
-          setData(result.data);
+          const result = await axios(url, { transformResponse: [data  => data] });
+          setData(JSONBigInt.parse(result.data));
         } catch (error) {
           setIsError(true);
         }
@@ -31,4 +31,4 @@ const useHackerNewsApi = (uri) => {
     return [{ data, isLoading, isError }, setUrl];
   }
 
-  export default useHackerNewsApi
+  export default useGetURL
